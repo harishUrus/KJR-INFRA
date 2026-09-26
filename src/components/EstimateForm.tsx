@@ -1,16 +1,28 @@
-import { ArrowRight, ShieldCheck } from 'lucide-react'
+import { useState } from 'react'
+import { ArrowRight, ShieldCheck, Check } from 'lucide-react'
 
 type Props = {
   compact?: boolean
 }
 
-/**
- * Hero estimate card. The client has not yet provided the final form
- * questions, so the fields area is intentionally left as a ready-to-wire
- * placeholder rather than guessing at questions. Wire real fields + a
- * submit handler here once the client confirms them.
- */
+const CONSTRUCTION_TYPES = ['Independent House', 'Villa', 'G+1 / G+2', 'Other']
+
 export function EstimateForm({ compact }: Props) {
+  const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setSubmitting(true)
+    // No backend endpoint has been configured yet — this simulates the
+    // submit so the flow can be reviewed end-to-end. Wire a real request
+    // here once a destination (CRM/email/API) is confirmed.
+    window.setTimeout(() => {
+      setSubmitting(false)
+      setSubmitted(true)
+    }, 600)
+  }
+
   return (
     <div
       id={compact ? undefined : 'estimate-form'}
@@ -27,25 +39,113 @@ export function EstimateForm({ compact }: Props) {
         </p>
       </div>
 
-      {/* TODO: Final form fields to be added once the client confirms the
-          exact questions. This area is intentionally left ready-to-wire. */}
-      <div className="rounded-2xl border border-dashed border-navy/15 bg-white/40 px-4 py-8 text-center text-xs text-muted">
-        Form fields will appear here once confirmed.
-      </div>
+      {submitted ? (
+        <div className="flex flex-col items-center gap-3 py-10 text-center">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gold/15 text-gold">
+            <Check className="h-6 w-6" />
+          </div>
+          <p className="font-display text-xl text-navy">Thank you.</p>
+          <p className="max-w-xs text-sm text-body">
+            We&rsquo;ll contact you shortly to discuss your project requirements.
+          </p>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <Field label="Your Name">
+            <input
+              required
+              type="text"
+              name="name"
+              autoComplete="name"
+              placeholder="John Doe"
+              className="estimate-input"
+            />
+          </Field>
 
-      <button
-        type="button"
-        className="group mt-5 flex w-full items-center justify-center gap-2 rounded-2xl px-6 py-4 text-sm font-semibold tracking-wide text-white transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:shadow-lg"
-        style={{ background: 'linear-gradient(135deg, #17233D, #243452)' }}
-      >
-        Get My Construction Estimate
-        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-      </button>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <Field label="Phone Number">
+              <input
+                required
+                type="tel"
+                name="phone"
+                autoComplete="tel"
+                inputMode="tel"
+                placeholder="+91 XXXXX XXXXX"
+                className="estimate-input"
+              />
+            </Field>
+            <Field label="Email">
+              <input
+                type="email"
+                name="email"
+                autoComplete="email"
+                placeholder="hello@example.com"
+                className="estimate-input"
+              />
+            </Field>
+          </div>
 
-      <p className="mt-3 flex items-center justify-center gap-1.5 text-center text-xs text-muted">
-        <ShieldCheck className="h-3.5 w-3.5 flex-shrink-0" />
-        We&rsquo;ll contact you to discuss your project requirements.
-      </p>
+          <Field label="Plot Location">
+            <input
+              required
+              type="text"
+              name="location"
+              placeholder="e.g. Velachery, Chennai"
+              className="estimate-input"
+            />
+          </Field>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <Field label="Plot Area">
+              <input
+                required
+                type="text"
+                name="area"
+                placeholder="e.g. 1200 sq.ft"
+                className="estimate-input"
+              />
+            </Field>
+            <Field label="Construction Type">
+              <select required name="constructionType" defaultValue="" className="estimate-input">
+                <option value="" disabled>
+                  Select an option
+                </option>
+                {CONSTRUCTION_TYPES.map((t) => (
+                  <option key={t} value={t}>
+                    {t}
+                  </option>
+                ))}
+              </select>
+            </Field>
+          </div>
+
+          <button
+            type="submit"
+            disabled={submitting}
+            className="group mt-2 flex w-full items-center justify-center gap-2 rounded-2xl px-6 py-4 text-sm font-semibold tracking-wide text-white transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-60"
+            style={{ background: 'linear-gradient(135deg, #17233D, #243452)' }}
+          >
+            {submitting ? 'Sending…' : 'Get My Construction Estimate'}
+            {!submitting && (
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            )}
+          </button>
+
+          <p className="flex items-center justify-center gap-1.5 text-center text-xs text-muted">
+            <ShieldCheck className="h-3.5 w-3.5 flex-shrink-0" />
+            We&rsquo;ll contact you to discuss your project requirements.
+          </p>
+        </form>
+      )}
     </div>
+  )
+}
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <label className="flex flex-col gap-1.5">
+      <span className="text-xs font-semibold uppercase tracking-[0.1em] text-muted">{label}</span>
+      {children}
+    </label>
   )
 }
