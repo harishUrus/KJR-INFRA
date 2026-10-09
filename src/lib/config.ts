@@ -6,6 +6,9 @@ export const WHATSAPP_MESSAGE = 'Hi KJR Infra, I would like to discuss my constr
 // Single source of truth for every WhatsApp CTA on the site.
 export const WHATSAPP_LINK = 'https://wa.link/wrdhh3'
 
+export const INSTAGRAM_LINK = 'https://www.instagram.com/kjr_infra_offcial/'
+export const FACEBOOK_LINK = 'https://www.facebook.com/profile.php?id=61594848491746'
+
 // Google Apps Script Web App URL that appends estimate-form submissions as
 // rows to the "KJR Infra - Construction Enquiries" sheet.
 export const ENQUIRY_SHEET_WEBHOOK_URL =

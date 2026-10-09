@@ -1,7 +1,25 @@
 import { ArrowRight } from 'lucide-react'
 import { CONTACT } from '../lib/content'
-import { scrollToEstimateForm } from '../lib/config'
+import { scrollToEstimateForm, INSTAGRAM_LINK, FACEBOOK_LINK } from '../lib/config'
 import { Logo } from './Logo'
+
+function InstagramIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}
+
+function FacebookIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
+      <path d="M15 8h-2a2 2 0 0 0-2 2v2H9v3h2v7h3v-7h2.2l.3-3H14v-1.5c0-.5.3-1 1-1h1.5V8Z" />
+    </svg>
+  )
+}
 
 export function Footer() {
   return (
@@ -37,6 +55,27 @@ export function Footer() {
             <li>{CONTACT.email}</li>
             <li>{CONTACT.location}</li>
           </ul>
+
+          <div className="mt-5 flex items-center gap-3">
+            <a
+              href={INSTAGRAM_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="KJR Infra on Instagram"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-navy/15 text-navy transition-colors duration-300 hover:border-gold hover:bg-gold/10"
+            >
+              <InstagramIcon />
+            </a>
+            <a
+              href={FACEBOOK_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="KJR Infra on Facebook"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-navy/15 text-navy transition-colors duration-300 hover:border-gold hover:bg-gold/10"
+            >
+              <FacebookIcon />
+            </a>
+          </div>
         </div>
 
         <div className="flex items-start sm:items-center">
