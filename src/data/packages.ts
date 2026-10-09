@@ -1,6 +1,7 @@
 export type Package = {
   id: 'standard' | 'premium' | 'luxury'
   name: string
+  badge: string
   tagline: string
   price: string
   originalPrice: string
@@ -12,6 +13,7 @@ export const PACKAGES: Package[] = [
   {
     id: 'standard',
     name: 'Standard',
+    badge: 'Great Value',
     tagline: 'Essential Specifications. Thoughtfully Planned.',
     price: '₹2,299 / sq.ft',
     originalPrice: '₹2,499 / sq.ft',
@@ -30,6 +32,7 @@ export const PACKAGES: Package[] = [
   {
     id: 'premium',
     name: 'Premium',
+    badge: 'Most Popular',
     tagline: 'Enhanced Specifications. Elevated Finishes.',
     price: '₹2,649 / sq.ft',
     originalPrice: '₹2,849 / sq.ft',
@@ -49,6 +52,7 @@ export const PACKAGES: Package[] = [
   {
     id: 'luxury',
     name: 'Luxury',
+    badge: 'Top Tier',
     tagline: 'Premium Materials. Refined Finishing.',
     price: '₹2,999 / sq.ft',
     originalPrice: '₹3,199 / sq.ft',

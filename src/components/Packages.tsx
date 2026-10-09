@@ -69,12 +69,12 @@ export function Packages() {
           })}
         </div>
 
-        {/* Mobile: horizontal swipe */}
-        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 no-scrollbar lg:hidden">
+        {/* Mobile/tablet: vertical stack — scroll down through each package in full, no swiping */}
+        <div className="flex flex-col gap-6 lg:hidden">
           {PACKAGES.map((pkg) => (
             <div
               key={pkg.id}
-              className="package-card w-[85vw] flex-shrink-0 snap-center rounded-[22px] border border-navy/10 bg-bg-light p-6"
+              className="package-card w-full rounded-[22px] border border-navy/10 bg-bg-light p-6"
             >
               <PackageContent pkg={pkg} />
             </div>
@@ -106,7 +106,10 @@ export function Packages() {
 function PackageContent({ pkg }: { pkg: Package }) {
   return (
     <>
-      <p className="eyebrow mb-2">{pkg.name}</p>
+      <span className="inline-block rounded-full bg-navy px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white">
+        {pkg.badge}
+      </span>
+      <p className="eyebrow mb-2 mt-4">{pkg.name}</p>
       <h3 className="font-display text-xl text-navy sm:text-2xl">{pkg.tagline}</h3>
 
       <div className="mt-6 flex items-baseline gap-2">
