@@ -14,13 +14,7 @@ export const PROJECT_PHOTOS: ProjectMedia[] = [
   { src: '/projects/completed-4.jpg', type: 'image', status: 'completed' },
   { src: '/projects/completed-5.jpg', type: 'image', status: 'completed' },
 
-  // Ongoing — site excavation, blockwork, exposed structure, scaffolding,
-  // plastering/painting/finishing work in progress
-  { src: '/projects/ongoing-10.jpg', type: 'image', status: 'ongoing' },
-  { src: '/projects/ongoing-12.jpg', type: 'image', status: 'ongoing' },
-
   // Ongoing — site videos
-  { src: '/projects/videos/ongoing-video-5.mp4', type: 'video', status: 'ongoing' },
   { src: '/projects/videos/ongoing-video-6.mp4', type: 'video', status: 'ongoing' },
   { src: '/projects/videos/ongoing-video-7.mp4', type: 'video', status: 'ongoing' },
   { src: '/projects/videos/ongoing-video-13.mp4', type: 'video', status: 'ongoing' },
