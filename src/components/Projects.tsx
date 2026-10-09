@@ -101,7 +101,12 @@ export function Projects() {
             >
               {item.type === 'video' ? (
                 <video
-                  src={item.src}
+                  // The #t=0.1 fragment tells the browser to seek to that
+                  // timestamp on load, which forces it to actually decode
+                  // and paint a frame as the thumbnail. Without it,
+                  // preload="metadata" only fetches duration/dimensions and
+                  // the element renders as a blank box until playback.
+                  src={`${item.src}#t=0.1`}
                   muted
                   playsInline
                   preload="metadata"

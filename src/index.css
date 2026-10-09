@@ -31,42 +31,52 @@
   --ease: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-* {
-  box-sizing: border-box;
-}
+/*
+ * Base-level element resets live inside Tailwind's `base` layer on purpose:
+ * unlayered CSS always wins over `@layer utilities` in the cascade
+ * regardless of specificity, which previously made utilities like
+ * `text-white` silently do nothing on any heading (they lost to the plain
+ * `h1,h2,h3,h4 { color: ... }` rule below). Keeping these in `@layer base`
+ * lets utility classes override them normally, as expected.
+ */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
 
-html,
-body {
-  background: var(--color-bg-light);
-  color: var(--color-body);
-  overscroll-behavior-y: none;
-}
+  html,
+  body {
+    background: var(--color-bg-light);
+    color: var(--color-body);
+    overscroll-behavior-y: none;
+  }
 
-body {
-  font-family: var(--font-body);
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+  body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-::selection {
-  background: var(--color-gold);
-  color: var(--color-navy);
-}
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-navy);
+  }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-display);
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  color: var(--color-navy);
-}
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--color-navy);
+  }
 
-a,
-button {
-  cursor: pointer;
+  a,
+  button {
+    cursor: pointer;
+  }
 }
 
 .eyebrow {
