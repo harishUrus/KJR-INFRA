@@ -2,11 +2,9 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 import { Star } from 'lucide-react'
-import { REVIEWS_PLACEHOLDER } from '../lib/content'
+import { REVIEWS } from '../lib/content'
 
 gsap.registerPlugin(ScrollTrigger)
-
-// TODO: Replace with actual KJR client testimonials.
 
 export function Reviews() {
   const ref = useRef<HTMLElement>(null)
@@ -39,9 +37,9 @@ export function Reviews() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-3">
-          {REVIEWS_PLACEHOLDER.map((i) => (
+          {REVIEWS.map((review) => (
             <div
-              key={i}
+              key={review.name}
               className="review-card flex flex-col justify-between rounded-[20px] border border-navy/10 bg-white p-6 sm:p-7"
             >
               <div>
@@ -50,11 +48,12 @@ export function Reviews() {
                     <Star key={idx} className="h-4 w-4" fill="currentColor" strokeWidth={0} />
                   ))}
                 </div>
-                <p className="text-sm italic leading-relaxed text-body">
-                  [Actual customer testimonial will be added later.]
-                </p>
+                <p className="text-sm italic leading-relaxed text-body">&ldquo;{review.quote}&rdquo;</p>
               </div>
-              <p className="mt-6 text-sm font-semibold text-navy">Client Name</p>
+              <div className="mt-6">
+                <p className="text-sm font-semibold text-navy">{review.name}</p>
+                <p className="text-xs text-muted">{review.role}</p>
+              </div>
             </div>
           ))}
         </div>

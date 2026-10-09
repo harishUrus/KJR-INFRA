@@ -74,7 +74,26 @@ export const HOW_IT_WORKS = [
   },
 ]
 
-export const REVIEWS_PLACEHOLDER = [1, 2, 3]
+export const REVIEWS = [
+  {
+    name: 'Vijay',
+    role: 'Residential Plot',
+    quote:
+      'I had a good experience with KJR Infra. The team explained the plot details clearly and answered my questions. Their support made it easier for me to understand the process. Overall, I am happy with the way they handled things.',
+  },
+  {
+    name: 'Raghu',
+    role: 'Residential Plot',
+    quote:
+      'The team at KJR Infra was helpful and easy to communicate with. They explained the property details and guided me through my queries. I appreciate their approach and the time they took to clarify things.',
+  },
+  {
+    name: 'Praveen',
+    role: 'Commercial Project',
+    quote:
+      'My experience with KJR Infra was good. The team understood my commercial project requirements and communicated the details clearly. They were responsive to my questions, and I appreciate their professional approach.',
+  },
+]
 
 export const CONTACT = {
   phone: '+91 00000 00000',
