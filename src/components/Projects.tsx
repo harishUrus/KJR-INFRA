@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
-import { ArrowRight, X } from 'lucide-react'
-import { PROJECT_PHOTOS } from '../data/projectPhotos'
+import { ArrowRight, Play, X } from 'lucide-react'
+import { PROJECT_PHOTOS, type ProjectMedia } from '../data/projectPhotos'
 import { scrollToEstimateForm } from '../lib/config'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -15,7 +15,7 @@ const TABS = [
 export function Projects() {
   const sectionRef = useRef<HTMLElement>(null)
   const [tab, setTab] = useState<'completed' | 'ongoing'>('completed')
-  const [lightbox, setLightbox] = useState<string | null>(null)
+  const [lightbox, setLightbox] = useState<ProjectMedia | null>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -37,7 +37,7 @@ export function Projects() {
         opacity: 0,
         y: 20,
         duration: 0.5,
-        stagger: 0.06,
+        stagger: 0.04,
         ease: 'power2.out',
       })
     }, sectionRef)
@@ -53,7 +53,7 @@ export function Projects() {
     return () => window.removeEventListener('keydown', onKey)
   }, [lightbox])
 
-  const photos = PROJECT_PHOTOS.filter((p) => p.status === tab)
+  const media = PROJECT_PHOTOS.filter((p) => p.status === tab)
 
   return (
     <section id="projects" ref={sectionRef} className="relative bg-white px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
@@ -92,19 +92,38 @@ export function Projects() {
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
-          {photos.map((photo) => (
+          {media.map((item) => (
             <button
-              key={photo.src}
+              key={item.src}
               type="button"
-              onClick={() => setLightbox(photo.src)}
+              onClick={() => setLightbox(item)}
               className="project-photo group relative aspect-[4/3] overflow-hidden rounded-xl border border-navy/10 bg-bg-light"
             >
-              <img
-                src={photo.src}
-                alt={photo.status === 'completed' ? 'Completed KJR Infra project' : 'Ongoing KJR Infra construction'}
-                loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
+              {item.type === 'video' ? (
+                <video
+                  src={item.src}
+                  muted
+                  playsInline
+                  preload="metadata"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              ) : (
+                <img
+                  src={item.src}
+                  alt={item.status === 'completed' ? 'Completed KJR Infra project' : 'Ongoing KJR Infra construction'}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              )}
+
+              {item.type === 'video' && (
+                <span className="absolute inset-0 flex items-center justify-center bg-navy/15">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-navy shadow-md transition-transform duration-300 group-hover:scale-110">
+                    <Play className="ml-0.5 h-4.5 w-4.5" fill="currentColor" />
+                  </span>
+                </span>
+              )}
+
               <span className="absolute inset-0 bg-gradient-to-t from-navy/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             </button>
           ))}
@@ -123,12 +142,23 @@ export function Projects() {
             >
               <X className="h-5 w-5" />
             </button>
-            <img
-              src={lightbox}
-              alt="KJR Infra project"
-              className="max-h-[85vh] max-w-full rounded-lg object-contain"
-              onClick={(e) => e.stopPropagation()}
-            />
+            {lightbox.type === 'video' ? (
+              <video
+                src={lightbox.src}
+                controls
+                autoPlay
+                playsInline
+                className="max-h-[85vh] max-w-full rounded-lg"
+                onClick={(e) => e.stopPropagation()}
+              />
+            ) : (
+              <img
+                src={lightbox.src}
+                alt="KJR Infra project"
+                className="max-h-[85vh] max-w-full rounded-lg object-contain"
+                onClick={(e) => e.stopPropagation()}
+              />
+            )}
           </div>
         )}
 
