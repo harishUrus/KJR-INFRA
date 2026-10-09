@@ -92,13 +92,20 @@ export function Projects() {
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
-          {media.map((item) => (
+          {media.map((item, i) => (
             <button
               key={item.src}
               type="button"
               onClick={() => setLightbox(item)}
               className="project-photo group relative aspect-[4/3] overflow-hidden rounded-xl border border-navy/10 bg-bg-light"
             >
+              {/* Reference number so specific items can be identified
+                  precisely (e.g. "remove #12") instead of relying on a
+                  picker selector, which can't distinguish between tiles
+                  that share identical markup. */}
+              <span className="absolute left-1.5 top-1.5 z-10 flex h-5 min-w-5 items-center justify-center rounded-full bg-navy/70 px-1 text-[10px] font-bold text-white">
+                {i + 1}
+              </span>
               {item.type === 'video' ? (
                 <video
                   // The #t=0.1 fragment tells the browser to seek to that
