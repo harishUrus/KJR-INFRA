@@ -16,9 +16,6 @@ export const PROJECT_PHOTOS: ProjectMedia[] = [
 
   // Ongoing — site excavation, blockwork, exposed structure, scaffolding,
   // plastering/painting/finishing work in progress
-  { src: '/projects/ongoing-2.jpg', type: 'image', status: 'ongoing' },
-  { src: '/projects/ongoing-6.jpg', type: 'image', status: 'ongoing' },
-  { src: '/projects/ongoing-8.jpg', type: 'image', status: 'ongoing' },
   { src: '/projects/ongoing-10.jpg', type: 'image', status: 'ongoing' },
   { src: '/projects/ongoing-12.jpg', type: 'image', status: 'ongoing' },
 
