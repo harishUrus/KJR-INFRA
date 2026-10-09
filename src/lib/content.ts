@@ -51,20 +51,6 @@ export const WHY_KJR = [
   },
 ]
 
-export type Project = {
-  id: string
-  title: string
-  status: string
-}
-
-export const PROJECTS: Project[] = [
-  { id: 'elite', title: 'KJR ELITE', status: 'Completed PG Project' },
-  { id: 'signature', title: 'KJR SIGNATURE', status: 'Completed PG Project' },
-  { id: 'platinum', title: 'KJR PLATINUM', status: 'Completed PG Project' },
-  { id: 'krishna', title: 'KRISHNA PG', status: 'Completed PG Project' },
-  { id: 'ongoing', title: 'Ongoing Projects', status: 'Construction in Progress' },
-]
-
 export const HOW_IT_WORKS = [
   {
     number: '01',
