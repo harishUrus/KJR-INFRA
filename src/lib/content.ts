@@ -96,7 +96,7 @@ export const REVIEWS = [
 ]
 
 export const CONTACT = {
-  phone: '+91 00000 00000',
+  phone: '+91 95000 81331',
   email: 'info@kjrinfra.com',
   location: 'Chennai, Tamil Nadu',
 }
