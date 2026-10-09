@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { ArrowRight, ShieldCheck, Check } from 'lucide-react'
+import { ArrowRight, ShieldCheck, Check, AlertCircle } from 'lucide-react'
+import { ENQUIRY_SHEET_WEBHOOK_URL } from '../lib/config'
 
 type Props = {
   compact?: boolean
@@ -10,17 +11,39 @@ const CONSTRUCTION_TYPES = ['Independent House', 'Villa', 'G+1 / G+2', 'Other']
 export function EstimateForm({ compact }: Props) {
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSubmitting(true)
-    // No backend endpoint has been configured yet — this simulates the
-    // submit so the flow can be reviewed end-to-end. Wire a real request
-    // here once a destination (CRM/email/API) is confirmed.
-    window.setTimeout(() => {
-      setSubmitting(false)
+    setError(false)
+
+    const data = Object.fromEntries(new FormData(e.currentTarget))
+
+    if (!ENQUIRY_SHEET_WEBHOOK_URL) {
+      // Backend not wired yet — simulate the submit so the flow can still
+      // be reviewed end-to-end. Set ENQUIRY_SHEET_WEBHOOK_URL in
+      // lib/config.ts once the Apps Script Web App is deployed.
+      window.setTimeout(() => {
+        setSubmitting(false)
+        setSubmitted(true)
+      }, 600)
+      return
+    }
+
+    try {
+      const res = await fetch(ENQUIRY_SHEET_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(data),
+      })
+      if (!res.ok) throw new Error(`Submit failed: ${res.status}`)
       setSubmitted(true)
-    }, 600)
+    } catch {
+      setError(true)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -118,6 +141,13 @@ export function EstimateForm({ compact }: Props) {
               </select>
             </Field>
           </div>
+
+          {error && (
+            <p className="flex items-center justify-center gap-1.5 text-center text-xs text-red-600">
+              <AlertCircle className="h-3.5 w-3.5 flex-shrink-0" />
+              Something went wrong. Please try again or reach us on WhatsApp.
+            </p>
+          )}
 
           <button
             type="submit"
