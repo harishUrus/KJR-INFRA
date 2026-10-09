@@ -1,8 +1,8 @@
 export const NAV_LINKS = [
+  { label: 'Projects', href: '#projects' },
   { label: 'Services', href: '#services' },
   { label: 'Packages', href: '#packages' },
   { label: 'Why KJR', href: '#why-kjr' },
-  { label: 'Projects', href: '#projects' },
   { label: 'Reviews', href: '#reviews' },
   { label: 'How It Works', href: '#how-it-works' },
 ]

@@ -22,11 +22,11 @@ function App() {
       <Header />
       <main>
         <Hero />
+        <Projects />
         <TrustExperience />
         <Services />
         <Packages />
         <WhyKjr />
-        <Projects />
         <Reviews />
         <HowItWorks />
         <FinalCta />
