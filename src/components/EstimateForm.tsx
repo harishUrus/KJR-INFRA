@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowRight, ShieldCheck, Check, AlertCircle } from 'lucide-react'
+import { ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react'
 import { ENQUIRY_SHEET_WEBHOOK_URL } from '../lib/config'
 
 type Props = {
@@ -9,7 +9,6 @@ type Props = {
 const CONSTRUCTION_TYPES = ['Independent House', 'Villa', 'G+1 / G+2', 'Other']
 
 export function EstimateForm({ compact }: Props) {
-  const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(false)
 
@@ -25,8 +24,7 @@ export function EstimateForm({ compact }: Props) {
       // be reviewed end-to-end. Set ENQUIRY_SHEET_WEBHOOK_URL in
       // lib/config.ts once the Apps Script Web App is deployed.
       window.setTimeout(() => {
-        setSubmitting(false)
-        setSubmitted(true)
+        window.location.href = '/thank-you'
       }, 600)
       return
     }
@@ -38,10 +36,9 @@ export function EstimateForm({ compact }: Props) {
         body: JSON.stringify(data),
       })
       if (!res.ok) throw new Error(`Submit failed: ${res.status}`)
-      setSubmitted(true)
+      window.location.href = '/thank-you'
     } catch {
       setError(true)
-    } finally {
       setSubmitting(false)
     }
   }
@@ -62,18 +59,7 @@ export function EstimateForm({ compact }: Props) {
         </p>
       </div>
 
-      {submitted ? (
-        <div className="flex flex-col items-center gap-3 py-10 text-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gold/15 text-gold">
-            <Check className="h-6 w-6" />
-          </div>
-          <p className="font-display text-xl text-navy">Thank you.</p>
-          <p className="max-w-xs text-sm text-body">
-            We&rsquo;ll contact you shortly to discuss your project requirements.
-          </p>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <Field label="Your Name">
             <input
               required
@@ -165,8 +151,7 @@ export function EstimateForm({ compact }: Props) {
             <ShieldCheck className="h-3.5 w-3.5 flex-shrink-0" />
             We&rsquo;ll contact you to discuss your project requirements.
           </p>
-        </form>
-      )}
+      </form>
     </div>
   )
 }

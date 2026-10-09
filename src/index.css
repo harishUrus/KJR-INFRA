@@ -83,6 +83,22 @@ button {
   transform: translateY(32px);
 }
 
+@keyframes ty-reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ty-reveal {
+  opacity: 0;
+  animation: ty-reveal-in 0.8s var(--ease-signature) forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -92,9 +108,11 @@ button {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .reveal {
+  .reveal,
+  .ty-reveal {
     opacity: 1 !important;
     transform: none !important;
+    animation: none !important;
   }
 }
 
